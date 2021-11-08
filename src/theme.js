@@ -22,7 +22,7 @@ const theme = createTheme({
             contrastText: '#fff'
         },
         secondary: {
-            main: 'rgb(29, 145, 218)'
+            main: '#14171A'
         },
         error: {
             main: red.A400

@@ -4,7 +4,7 @@ import { Apple, Twitter } from '@material-ui/icons'
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         display: 'flex',
-        height: "calc(100vh - 85px)"
+        height: "100vh"
     },
 
     leftBlock: {
@@ -16,7 +16,12 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        "& svg": { fontSize: '450px', color: '#FFF' }
+    },
+
+    leftBlockIcon: {
+        height: '450px',
+        width: '450px',
+        color: '#FFF'
     },
 
     loginSide: {
@@ -74,14 +79,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SignIn() {
+function SignIn({ handleOpenDialog }) {
     const classes = useStyles();
 
 
     return (
         <div className={ classes.wrapper }>
             <div className={ classes.leftBlock }>
-                <Twitter/>
+                <Twitter className={ classes.leftBlockIcon }/>
             </div>
             <div className={ classes.loginSide }>
                 <div className={ classes.loginSideWrapper }>
@@ -111,7 +116,7 @@ function SignIn() {
                     }
                     <div className={ classes.loginSideBottomText }>
                         Уже зарегистрированы?
-                        <Link color={ 'primary' }>
+                        <Link onClick={ handleOpenDialog } color={ 'primary' }>
                             Войдите
                         </Link>
                     </div>
