@@ -5,14 +5,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from './App';
 import theme from "./theme";
 
+console.log(theme);
+
 ReactDOM.render(
-    <React.StrictMode>
-        <Router>
-            <ThemeProvider theme={ theme }>
-                <App/>
-            </ThemeProvider>
-        </Router>
-    </React.StrictMode>,
+    <Router>
+        <ThemeProvider theme={ theme }>
+            <App/>
+        </ThemeProvider>
+    </Router>
+    ,
     document.getElementById('root')
 );
 

@@ -1,5 +1,8 @@
-import { Button, Link, makeStyles, Typography } from "@material-ui/core";
+import { Button, Link, makeStyles, TextField, Typography } from "@material-ui/core";
 import { Apple, Twitter } from '@material-ui/icons'
+import Popup from "../components/Popup";
+import CreateUserForm from "../components/CreateUserForm";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -50,39 +53,24 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 700,
         marginBottom: '32px',
     },
-
     button: {
-        display: 'flex',
-        justifyContent: 'center',
-        width: '300px',
-        marginBottom: '10px',
-    },
-
-    buttonText: {
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        overflow: 'hidden',
-    },
-    buttonAppleIcon: {
-        fontSize: '15px',
-        marginRight: '5px'
-    },
-
-    loginSideBottomInfo: {
-        width: '380px',
-        fontSize: '13px',
-        color: 'rgb(83, 100, 113)'
-    },
-    loginSideBottomText: {
-        fontSize: '15px',
-        marginTop: '20px'
+        marginBottom: theme.spacing(2),
+        width: '380px'
     }
 }));
 
-function SignIn({ handleOpenDialog }) {
+function SignIn() {
     const classes = useStyles();
 
+    let [openDialog, setOpenDialog] = useState(true);
 
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    }
     return (
         <div className={ classes.wrapper }>
             <div className={ classes.leftBlock }>
@@ -95,33 +83,22 @@ function SignIn({ handleOpenDialog }) {
                     <Typography className={ classes.loginSideSubtitle } variant={ 'h4' }>Присоединяйтесь к Твиттеру
                         прямо
                         сейчас!</Typography>
+                    <Button className={ classes.button }
+                            color={ 'primary' }
+                            variant={ 'contained' }
+                    >Зарегистрироваться</Button>
 
-                    <Button className={ classes.button } variant={ 'outlined' } fullWidth>
-                        <span className={ classes.buttonText }>Регистрация с помощью Google</span>
-                    </Button>
-
-                    <Button className={ classes.button } variant={ 'outlined' } fullWidth>
-                        <Apple className={ classes.buttonAppleIcon }/>
-                        <span className={ classes.buttonText }>Зарегистрироваться с учетной записью Apple</span>
-                    </Button>
-                    <Button className={ classes.button } variant={ 'outlined' } fullWidth>
-                        <span className={ classes.buttonText }>Зарегистрируйтесь с помощью номера телефона или адреса электронной почты</span>
-                    </Button>
-                    <div className={ classes.loginSideBottomInfo }>
-                        Регистрируясь, вы соглашаетесь с Условиями предоставления услуг и Политикой конфиденциальности,
-                        а также с Политикой использования файлов cookie.
-                    </div>
-                    {
-                        // TODO Зробити знизу лінк до сторінки логування
-                    }
-                    <div className={ classes.loginSideBottomText }>
-                        Уже зарегистрированы?
-                        <Link onClick={ handleOpenDialog } color={ 'primary' }>
-                            Войдите
-                        </Link>
-                    </div>
+                    <Button className={ classes.button }
+                            variant={ 'outlined' }
+                            color={ 'primary' }
+                    >Войти</Button>
                 </div>
             </div>
+            <Popup open={ openDialog }
+                   handleCloseDialog={ handleCloseDialog }
+                   title={ 'Создайте учетную запись' }>
+                <CreateUserForm/>
+            </Popup>
         </div>
     );
 }
