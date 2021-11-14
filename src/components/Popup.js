@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Popup = ({ open, handleCloseDialog, children, title }) => {
+export const Popup = ({ open, handleCloseDialog, children, title, buttonText }) => {
     const classes = useStyles();
     return (
         <Dialog open={ open } onClose={ handleCloseDialog } fullWidth>
@@ -40,7 +40,7 @@ const Popup = ({ open, handleCloseDialog, children, title }) => {
                 { children }
             </DialogContent>
             <DialogActions>
-                <Button variant={ 'contained' } fullWidth>Далее</Button>
+                <Button variant={ 'contained' } fullWidth>{ buttonText }</Button>
             </DialogActions>
         </Dialog>
     );
@@ -51,6 +51,5 @@ Popup.propTypes = {
     handleCloseDialog: PropTypes.func
 };
 
-export default Popup;
 
 

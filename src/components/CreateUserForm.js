@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import {
-    FormControl,
-    FormGroup,
-    InputLabel,
-    makeStyles,
-    MenuItem,
-    Select,
-    TextField,
-    Typography
-} from "@material-ui/core";
+import { FormControl, FormGroup, Grid, makeStyles, TextField, Typography } from "@material-ui/core";
+import 'dayjs/locale/ru';
+import dayjs from 'dayjs';
+import { CustomSelect } from "./CustomSelect";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,29 +13,35 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CreateUserForm = () => {
+
+export const CreateUserForm = () => {
     const classes = useStyles();
+    dayjs.months()
 
-    const [value, setValue] = useState('');
+    const maxDate = dayjs().year() - 6;
+    const minDate = dayjs().year() - 120;
 
-    const months = [
-        'Січень',
-        'Лютий',
-        'Березень',
-        'Квітень',
-        'Травень',
-        'Червень',
-        'Липень',
-        'Серпень',
-        'Вересень',
-        'Жовтень',
-        'Листопад'
-    ];
+    const yearsArray = Array
+        .apply(null, { length: maxDate + 1 - minDate })
+        .map(function (_, idx) {
+            return { label: idx + minDate, value: idx + 1 }
+        })
+        .sort((a, b) => b.label - a.label);
 
-    const handleOnSelect = (e) => {
-        const value = e.target.value;
-        setValue(value);
-    };
+    console.log(yearsArray);
+
+    const selectedDate = dayjs().locale('ru')
+        .set('date', 1)
+        .set('month', 2)
+        .set('year', 1970);
+
+
+    console.log(selectedDate.format('MMMM D, YYYY'));
+
+
+    const [month, setMonth] = useState(null);
+    const [day, setDay] = useState(null);
+    const [year, setYear] = useState(null);
 
     return (
         <FormControl component={ 'fieldset' } className={ classes.root } fullWidth>
@@ -52,29 +52,24 @@ const CreateUserForm = () => {
                     Эта информация не будет общедоступной. Подтвердите свой возраст, даже если эта учетная запись
                     предназначена для компании, домашнего животного и т. д.
                 </Typography>
-                <InputLabel id="month">Месяц</InputLabel>
-                <Select
-                    variant={
-                        'outlined'
-                    }
-                    labelId="month"
-                    id="month"
-                    value={ value }
-                    label="Місяць"
-                    onChange={ handleOnSelect }
-                >
-                    { months.map((month, index) =>
-                        <MenuItem
-                            value={ month }
-                            key={ index }>
-                            { month }
-                        </MenuItem>) }
-                </Select>
+                <Grid container spacing={ 3 }>
+                    <Grid item xs={ 6 }>
+                        <CustomSelect value={ year } onChange={ (e) => setYear(e.target.value) }
+                                      options={ yearsArray }/>
+                    </Grid>
+                    <Grid item xs={ 3 }>
+                        <CustomSelect value={ year } onChange={ (e) => setYear(e.target.value) }
+                                      options={ yearsArray }/>
+                    </Grid>
+                    <Grid item xs={ 3 }>
+                        <CustomSelect value={ year } onChange={ (e) => setYear(e.target.value) }
+                                      options={ yearsArray }/>
+                    </Grid>
+                </Grid>
             </FormGroup>
         </FormControl>
     );
 };
 
-export default CreateUserForm;
 
 

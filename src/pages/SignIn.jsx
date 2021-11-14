@@ -1,7 +1,7 @@
-import { Button, Link, makeStyles, TextField, Typography } from "@material-ui/core";
-import { Apple, Twitter } from '@material-ui/icons'
-import Popup from "../components/Popup";
-import CreateUserForm from "../components/CreateUserForm";
+import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Twitter } from '@material-ui/icons'
+import { Popup } from "../components/Popup";
+import { CreateUserForm } from "../components/CreateUserForm";
 import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,15 +62,16 @@ const useStyles = makeStyles((theme) => ({
 function SignIn() {
     const classes = useStyles();
 
-    let [openDialog, setOpenDialog] = useState(true);
+    let [openDialog, setOpenDialog] = useState('');
 
     const handleOpenDialog = () => {
-        setOpenDialog(true);
+        setOpenDialog('signIn');
     };
 
     const handleCloseDialog = () => {
-        setOpenDialog(false);
+        setOpenDialog('');
     }
+
     return (
         <div className={ classes.wrapper }>
             <div className={ classes.leftBlock }>
@@ -91,12 +92,16 @@ function SignIn() {
                     <Button className={ classes.button }
                             variant={ 'outlined' }
                             color={ 'primary' }
+                            onClick={ handleOpenDialog }
                     >Войти</Button>
                 </div>
             </div>
-            <Popup open={ openDialog }
-                   handleCloseDialog={ handleCloseDialog }
-                   title={ 'Создайте учетную запись' }>
+            <Popup
+                open={ openDialog === 'signIn' }
+                title={ 'Создайте учетную запись' }
+                handleCloseDialog={ handleCloseDialog }
+                buttonText={ 'Далее' }
+            >
                 <CreateUserForm/>
             </Popup>
         </div>
