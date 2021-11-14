@@ -65,7 +65,7 @@ const theme = createTheme({
         },
         MuiDialog: {
             paper: {
-                borderRadius: 15
+                borderRadius: 15,
             }
         },
         MuiDialogActions: {
@@ -92,5 +92,6 @@ const theme = createTheme({
     }
 
 });
+
 
 export default theme;

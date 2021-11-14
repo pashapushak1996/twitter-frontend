@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from './App';
 import theme from "./theme";
 
-console.log(theme);
 
 ReactDOM.render(
     <Router>

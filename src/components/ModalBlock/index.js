@@ -1,16 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-    makeStyles,
-    Typography
-} from "@material-ui/core";
+import { Dialog, DialogContent, DialogTitle, IconButton, makeStyles, Typography } from "@material-ui/core";
 import { Close, Twitter } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,12 +12,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const Popup = ({ open, handleCloseDialog, children, title, buttonText }) => {
+export const Modal = ({ open, handleCloseDialog, children, title }) => {
     const classes = useStyles();
     return (
         <Dialog open={ open } onClose={ handleCloseDialog } fullWidth>
             <div className={ classes.popupHeader }>
-                <IconButton>
+                <IconButton onClick={ handleCloseDialog }>
                     <Close color={ 'secondary' }/>
                 </IconButton>
                 <Twitter style={ { fontSize: '38px' } } color={ 'primary' }/>
@@ -39,14 +30,11 @@ export const Popup = ({ open, handleCloseDialog, children, title, buttonText }) 
             <DialogContent>
                 { children }
             </DialogContent>
-            <DialogActions>
-                <Button variant={ 'contained' } fullWidth>{ buttonText }</Button>
-            </DialogActions>
         </Dialog>
     );
 };
 
-Popup.propTypes = {
+Modal.propTypes = {
     open: PropTypes.bool,// TODO PropType isRequired,
     handleCloseDialog: PropTypes.func
 };
