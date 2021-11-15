@@ -1,15 +1,13 @@
+import { useState } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { Twitter } from '@material-ui/icons'
-import { Popup } from "../components/Popup";
-import { CreateUserForm } from "../components/CreateUserForm";
-import { useState } from "react";
+import { CreateUserForm, Modal, SignInUserForm } from "../components";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         display: 'flex',
         height: "100vh"
     },
-
     leftBlock: {
         display: 'flex',
         alignItems: 'center',
@@ -56,20 +54,35 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginBottom: theme.spacing(2),
         width: '380px'
+    },
+    registerField: {
+        marginBottom: theme.spacing(4)
+    },
+    loginField: {
+        marginBottom: theme.spacing(2)
+    },
+    formControl: {
+        marginBottom: theme.spacing(3),
+        width: '100%'
     }
 }));
 
-function SignIn() {
+export const SignIn = () => {
     const classes = useStyles();
 
-    let [openDialog, setOpenDialog] = useState('');
+    const [openModal, setOpenModal] = useState('');
 
-    const handleOpenDialog = () => {
-        setOpenDialog('signIn');
+    const handleOpenSignIn = () => {
+        setOpenModal('signIn');
     };
 
+    const handleOpenSignUp = () => {
+        setOpenModal('signUp');
+    };
+
+
     const handleCloseDialog = () => {
-        setOpenDialog('');
+        setOpenModal('');
     }
 
     return (
@@ -87,25 +100,31 @@ function SignIn() {
                     <Button className={ classes.button }
                             color={ 'primary' }
                             variant={ 'contained' }
+                            onClick={ handleOpenSignUp }
                     >Зарегистрироваться</Button>
 
                     <Button className={ classes.button }
                             variant={ 'outlined' }
                             color={ 'primary' }
-                            onClick={ handleOpenDialog }
+                            onClick={ handleOpenSignIn }
                     >Войти</Button>
                 </div>
             </div>
-            <Popup
-                open={ openDialog === 'signIn' }
+            <Modal
+                open={ openModal === 'signIn' }
+                title={ 'Ввойти в аккаунт' }
+                handleCloseDialog={ handleCloseDialog }
+            >
+                <SignInUserForm classes={ classes }/>
+            </Modal>
+
+            <Modal
+                open={ openModal === 'signUp' }
                 title={ 'Создайте учетную запись' }
                 handleCloseDialog={ handleCloseDialog }
-                buttonText={ 'Далее' }
             >
-                <CreateUserForm/>
-            </Popup>
+                <CreateUserForm classes={ classes }/>
+            </Modal>
         </div>
     );
 }
-
-export default SignIn;

@@ -1,13 +1,15 @@
-import { CssBaseline, } from "@material-ui/core";
+import { Routes, Route } from 'react-router-dom';
 
-import SignIn from "./pages/SignIn";
+import { Home, SignIn } from "./pages";
 
 function App() {
 
 
     return (<div>
-        <CssBaseline/>
-        <SignIn/>
+        <Routes>
+            <Route path={ '/signIn' } element={ <SignIn/> }/>
+            <Route path={ '/home' } element={ <Home/> }/>
+        </Routes>
     </div>)
 }
 

@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "@types/material-ui": "^0.21.12",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "@types/react-router-dom": "^5.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
